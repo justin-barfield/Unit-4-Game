@@ -34,17 +34,20 @@ var button1Val = 0;
 var button2Val = 0;
 var button3Val = 0;
 var button4Val = 0;
-var generatedNumber = randomNumber();
+var generatedNumber = 0;
 var hiddenArray = [];
 var wins = 0;
 var losses = 0;
 
 function randomNumber() {
-    return Math.floor((Math.random() * 100) + 50);
+    return Math.floor((Math.random() * 50) + 10);
 };
 
 function setRandomNumber() {
+    // randomNumber();
+    generatedNumber = randomNumber();
     $('#random-number').html(generatedNumber);
+    return generatedNumber
 };
 
 function resetScore() {
@@ -61,40 +64,35 @@ function increaseWin() {
 
 function increaseLosses() {
     losses++;
-    $('losses').html(losses);
+    $('#losses').html(losses);
     return losses
 };
 
 function hiddenRandomNumber() {
     
     while(hiddenArray.length < 4){
-        var test = Math.floor((Math.random() * 11) + 2);
+        var test = Math.floor((Math.random() * 11) + 1);
         if(hiddenArray.indexOf(test) === -1) {
             hiddenArray.push(test);
         };
     };
 };
 
-hiddenRandomNumber();
-log(hiddenArray);
+
 
 function setHiddenValues() {
     hiddenRandomNumber();
-    button1Val = Math.floor(generatedNumber / hiddenArray[0]);
-    button2Val = Math.floor(generatedNumber / hiddenArray[1]);
-    button3Val = Math.floor(generatedNumber / hiddenArray[2]);
-    button4Val = Math.floor(generatedNumber / hiddenArray[3]);
-    // button1Val = Math.floor(generatedNumber / '3');
+    button1Val = Math.floor(generatedNumber / hiddenArray[0]) + 1;
+    button2Val = Math.floor(generatedNumber / hiddenArray[1]) + 1;
+    button3Val = Math.floor(generatedNumber / hiddenArray[2]) + 1;
+    button4Val = Math.floor(generatedNumber / hiddenArray[3]) + 1;
+
     $('#button1').val(button1Val);
-
-    // button2Val = Math.floor(generatedNumber / '5');
     $('#button2').val(button2Val);
-
-    // button3Val = Math.floor(generatedNumber / '8');
     $('#button3').val(button3Val);
-
-    // button4Val = Math.floor(generatedNumber / '10');
     $('#button4').val(button4Val);
+
+    // log(button1Val, button2Val, button3Val, button4Val);
 
     return button1Val, button2Val, button3Val, button4Val 
 };
@@ -107,7 +105,17 @@ function playLossSound() {
 var winSound = new Audio();
 function playWinSound() {
     winSound.src = 'assets/images/cheer1.wav';
-    sound.play();
+    winSound.play();
+};
+
+function resetGame() {
+    setRandomNumber();
+    setHiddenValues();
+    resetScore();
+    log(generatedNumber);
+    log(hiddenArray);
+    log(button1Val, button2Val, button3Val, button4Val);
+
 };
 
 function addToScore() {
@@ -116,45 +124,44 @@ function addToScore() {
         var scoreVal = $('#score').html();
         score = +buttonVal + +scoreVal;
         $('#score').text(score);
+
         if(score === generatedNumber){
+
             playWinSound();
             increaseWin();
             setTimeout(function() {
-                increaseWin();
                 resetGame();
-                alert('help')
-            }, 200);
+            }, 1000);
+
         } else if (score > generatedNumber){
             // playLossSound();
             increaseLosses();
             setTimeout(function() {
-                increaseLosses();
                 resetGame();
-                alert(losses)
-            }, 200);
+            }, 1000);
         };
         return score
     });
 };
 
-function resetGame() {
-    setHiddenValues();
-    setRandomNumber();
-    resetScore();
-};
-
-
-
-$('#wins').html(wins);
-$('#losses').html(losses);
 resetGame();
 addToScore();
 
 
 
 
-log(generatedNumber);
-log(button1Val, button2Val, button3Val, button4Val);
+
+
+// $('#wins').html(wins);
+// $('#losses').html(losses);
+// resetGame();
+// addToScore();
+
+
+
+
+// log(generatedNumber);
+// log(button1Val, button2Val, button3Val, button4Val);
 
 </script>
     

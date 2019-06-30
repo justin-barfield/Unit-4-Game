@@ -7,6 +7,8 @@
     <title>Crystal Collector</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -14,156 +16,32 @@
     <script defer src="assets/javascript/game.js"></script>
 </head>
 <body>
-<div>
-    <div id="section1">Crystal Collector</div>
-    <div id="section2" data-value='0'>Wins: <span id="wins"></span></div>
-    <div id="section3" data-value='0'>Losses: <span id="losses"></span></div>
-    <div id="section4" data-value='0'>Random Number: <span id='random-number'></span> </div>
-    <div id="section5">Score: <span id="score"></span></div>
-    <div id="section6"><button id="button1" value="0">Crystal 1</button></div>
-    <div id="section7"><button id="button2" value="0">Crystal 2</button></div>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a id="section1" class="nav-link active" href="#">Crystal Collector</a>
+        </li>
+    </ul>
+<div id= "content">
+    <ul class="list-group list-group-horizontal-lg justify-content-center">
+        <li class="list-group-item">Wins: <span id="wins"></span></li>
+        <li class="list-group-item">Losses: <span id="losses"></span></li>
+        <li class="list-group-item">Random Number: <span id='random-number'></span></li>
+        <li class="list-group-item">Score: <span id="score"></span></li>
+    </ul>
+    <br>
+    <br>
+    <div>
+        <img id="button1" value="0" src="assets/images/blue-gem.png" alt="blue-gem" class="img-thumbnail">
+        <img id="button2" value="0" src="assets/images/diamond.jpg" class="img-thumbnail">
+        <img id="button3" value="0" src="assets/images/opal.jpg" class="img-thumbnail">
+        <img id="button4" value="0" src="assets/images/pink-sapphire.png"   class="img-thumbnail">
+    </div>
+
+    <!-- <div id="section6"><button id="button1" value="0">Crystal 1</button></div> -->
+    <!-- <div id="section7"><button id="button2" value="0">Crystal 2</button></div>
     <div id="section8"><button id="button3" value="0">Crystal 3</button></div>
-    <div id="section9"><button id="button4" value="0">Crystal 4</button></div>
+    <div id="section9"><button id="button4" value="0">Crystal 4</button></div> -->
 </div>
-
-<script type="text/javascript">;
-var log = console.log
-
-var score = 0;
-var button1Val = 0;
-var button2Val = 0;
-var button3Val = 0;
-var button4Val = 0;
-var generatedNumber = 0;
-var hiddenArray = [];
-var wins = 0;
-var losses = 0;
-
-function randomNumber() {
-    return Math.floor((Math.random() * 50) + 10);
-};
-
-function setRandomNumber() {
-    // randomNumber();
-    generatedNumber = randomNumber();
-    $('#random-number').html(generatedNumber);
-    return generatedNumber
-};
-
-function resetScore() {
-    var score = 0;
-    $('#score').html(0);
-    return score;
-};
-
-function increaseWin() {
-    wins++;
-    $('#wins').html(wins);
-    return wins
-};
-
-function increaseLosses() {
-    losses++;
-    $('#losses').html(losses);
-    return losses
-};
-
-function hiddenRandomNumber() {
-    
-    while(hiddenArray.length < 4){
-        var test = Math.floor((Math.random() * 11) + 1);
-        if(hiddenArray.indexOf(test) === -1) {
-            hiddenArray.push(test);
-        };
-    };
-};
-
-
-
-function setHiddenValues() {
-    hiddenRandomNumber();
-    button1Val = Math.floor(generatedNumber / hiddenArray[0]) + 1;
-    button2Val = Math.floor(generatedNumber / hiddenArray[1]) + 1;
-    button3Val = Math.floor(generatedNumber / hiddenArray[2]) + 1;
-    button4Val = Math.floor(generatedNumber / hiddenArray[3]) + 1;
-
-    $('#button1').val(button1Val);
-    $('#button2').val(button2Val);
-    $('#button3').val(button3Val);
-    $('#button4').val(button4Val);
-
-    // log(button1Val, button2Val, button3Val, button4Val);
-
-    return button1Val, button2Val, button3Val, button4Val 
-};
-
-var lossSound = new Audio();
-function playLossSound() {
-
-};
-
-var winSound = new Audio();
-function playWinSound() {
-    winSound.src = 'assets/images/cheer1.wav';
-    winSound.play();
-};
-
-function resetGame() {
-    setRandomNumber();
-    setHiddenValues();
-    resetScore();
-    log(generatedNumber);
-    log(hiddenArray);
-    log(button1Val, button2Val, button3Val, button4Val);
-
-};
-
-function addToScore() {
-    $('button').click(function() {
-        var buttonVal = $(this).val();
-        var scoreVal = $('#score').html();
-        score = +buttonVal + +scoreVal;
-        $('#score').text(score);
-
-        if(score === generatedNumber){
-
-            playWinSound();
-            increaseWin();
-            setTimeout(function() {
-                resetGame();
-            }, 1000);
-
-        } else if (score > generatedNumber){
-            // playLossSound();
-            increaseLosses();
-            setTimeout(function() {
-                resetGame();
-            }, 1000);
-        };
-        return score
-    });
-};
-
-resetGame();
-addToScore();
-
-
-
-
-
-
-// $('#wins').html(wins);
-// $('#losses').html(losses);
-// resetGame();
-// addToScore();
-
-
-
-
-// log(generatedNumber);
-// log(button1Val, button2Val, button3Val, button4Val);
-
-</script>
     
 </body>
 </html>

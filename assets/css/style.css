@@ -22,6 +22,12 @@
     
 }
 
+#gems-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 img {
     width: 230px;
     height: 180px;

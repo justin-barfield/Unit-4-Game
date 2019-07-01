@@ -84,7 +84,8 @@
     
     var lossSound = new Audio();
     function playLossSound() {
-    
+        lossSound.src = 'assets/images/sad_trombone.wav'
+        lossSound.play();
     };
     
     var winSound = new Audio();
@@ -117,14 +118,16 @@
                 increaseWin();
                 setTimeout(function() {
                     resetGame();
-                }, 1000);
+                }, 100);
+                
     
             } else if (score > generatedNumber){
-                // playLossSound();
+                playLossSound();
                 increaseLosses();
                 setTimeout(function() {
                     resetGame();
-                }, 1000);
+                }, 100);
+                
             };
             return score
         });
